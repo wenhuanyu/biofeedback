@@ -549,15 +549,8 @@ export default {
             }
         },
         onDialogClose() {
-            this.add_newList = [];
-            this.patientListName = '';
-            this.patientListName_ = '';
-            this.terminal_nickname = '';
-            this.terminal_nickname_ = '';
-            this.programme_options_name = '';
-            this.difficulty_options_name = '';
-            this.gameList = [];
-            this.physiologyList_name = '';
+            this.qingkong()
+
         },
         async details(row) {
             this.details_ = true
@@ -587,14 +580,12 @@ export default {
             this.patient_id = e
             this.patient_id_name = e ? this.patientList.find(ele => ele.id === e).name : ''
             this.patient_id_num = e ? this.patientList.find(ele => ele.id === e).medical_num : ''
-            console.log(this.patient_id_name)
         },
         //请选择患者
         onPatientChange_(e) {
             this.patient_id = e
             this.patient_id_name = e ? this.patientList.find(ele => ele.id === e).name : ''
             this.patient_id_num = e ? this.patientList.find(ele => ele.id === e).medical_num : ''
-            console.log(this.patient_id_name)
         },
         //添加
         add_new() {
@@ -845,6 +836,22 @@ export default {
         deleteInfo(key) {
             this.infoForm.splice(key, 1)
         },
+        qingkong() {
+            this.add_newList = []
+            this.add_newList_ = []
+            this.add_newList__ = []
+            this.programme_options_id = ''
+            this.difficulty_options_id = ''
+            this.physiology_options_id= ''
+            this.patientListName = '';
+            this.patientListName_ = '';
+            this.terminal_nickname = '';
+            this.terminal_nickname_ = '';
+            this.programme_options_name = '';
+            this.difficulty_options_name = '';
+            this.gameList = [];
+            this.physiologyList_name = '';
+        },
         //完成按钮点击事件
         async buttonSubmit() {
             let patient_ids = [];
@@ -874,6 +881,7 @@ export default {
                 if (res.data.code === 1) {
                     this.single = false
                     this.Refresh()
+                    this.qingkong()
                 }
                 console.log(res.data.info)
             })
