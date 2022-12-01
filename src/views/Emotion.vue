@@ -76,22 +76,27 @@
                                                 <el-col :span="12">
                                                     <el-select placeholder="请选择患者"
                                                                v-model="patientListName"
+                                                               filterable :filter-method="dataFilter"
+                                                               @visible-change="visibleHideSelectInput"
                                                                @change="onPatientChange($event)"
                                                                clearable
                                                     >
-                                                        <el-option v-for="item in patientList"
+                                                        <el-option v-for="item in deviceIdList"
                                                                    :key="item.id"
                                                                    :value="item.id"
-                                                                   :label="item.name +'  '+ item.medical_num"></el-option>
+                                                                   :label="item.name +'  '+ item.age+'岁'+'  '+ item.medical_num"></el-option>
                                                     </el-select>
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-select placeholder="请选择终端"
                                                                v-model="terminal_nickname"
+                                                               filterable :filter-method="dataFilterTerminal"
+                                                               @visible-change="visibleHideSelectInputTerminal"
                                                                @change="hanldClickTerminal($event)"
+                                                               style="width: 100%;"
                                                                clearable
                                                     >
-                                                        <el-option v-for="item in terminalList"
+                                                        <el-option v-for="item in terminalIdList"
                                                                    :key="item.id"
                                                                    :value="item.id"
                                                                    :label="item.nickname"></el-option>
@@ -145,21 +150,27 @@
                                                 <el-col :span="12">
                                                     <el-select placeholder="请选择患者"
                                                                v-model="patientListName"
+                                                               filterable :filter-method="dataFilter"
+                                                               @visible-change="visibleHideSelectInput"
                                                                @change="onPatientChange($event)"
-                                                               clearable>
-                                                        <el-option v-for="item in patientList"
+                                                               clearable
+                                                    >
+                                                        <el-option v-for="item in deviceIdList"
                                                                    :key="item.id"
                                                                    :value="item.id"
-                                                                   :label="item.name +'  '+ item.medical_num"></el-option>
+                                                                   :label="item.name +'  '+ item.age+'岁'+'  '+ item.medical_num"></el-option>
                                                     </el-select>
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-select placeholder="请选择终端"
                                                                v-model="terminal_nickname"
+                                                               filterable :filter-method="dataFilterTerminal"
+                                                               @visible-change="visibleHideSelectInputTerminal"
                                                                @change="hanldClickTerminal($event)"
+                                                               style="width: 100%;"
                                                                clearable
                                                     >
-                                                        <el-option v-for="item in terminalList"
+                                                        <el-option v-for="item in terminalIdList"
                                                                    :key="item.id"
                                                                    :value="item.id"
                                                                    :label="item.nickname"></el-option>
@@ -208,20 +219,26 @@
                                                 <el-col :span="12">
                                                     <el-select placeholder="请选择患者"
                                                                v-model="patientListName_"
+                                                               filterable :filter-method="dataFilter"
+                                                               @visible-change="visibleHideSelectInput"
                                                                @change="onPatientChange_($event)"
                                                                clearable>
-                                                        <el-option v-for="item in patientList"
+                                                        <el-option v-for="item in deviceIdList"
                                                                    :key="item.id"
                                                                    :value="item.id"
-                                                                   :label="item.name +'  '+ item.medical_num"></el-option>
+                                                                   :label="item.name +'  '+ item.age+'岁'+'  '+ item.medical_num"></el-option>
                                                     </el-select>
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <el-select placeholder="请选择终端"
                                                                v-model="terminal_nickname_"
-                                                               @change="hanldClickTerminal($event)"
-                                                               clearable>
-                                                        <el-option v-for="item in terminalList"
+                                                               filterable :filter-method="dataFilterTerminal"
+                                                               @visible-change="visibleHideSelectInputTerminal"
+                                                               @change="hanldClickTerminal_($event)"
+                                                               style="width: 100%;"
+                                                               clearable
+                                                    >
+                                                        <el-option v-for="item in terminalIdList"
                                                                    :key="item.id"
                                                                    :value="item.id"
                                                                    :label="item.nickname"></el-option>
@@ -471,6 +488,8 @@ export default {
             patient_num: '',
             type:'',
             hospital_id:'',
+            terminalIdList:[],
+            deviceIdList:[],
         };
     },
     computed: {},
@@ -485,6 +504,50 @@ export default {
 
     },
     methods: {
+        // 自定义筛选方法
+        dataFilter(val) {
+            if (val) {
+                let filterResult = [];
+                let originalData = JSON.parse(JSON.stringify(this.patientList));
+                originalData.filter((item) => {
+                    if (item.medical_num.includes(val)) {
+                        filterResult.push(item);
+                    }
+                })
+                this.deviceIdList = filterResult
+
+            } else {
+                this.deviceIdList = this.patientList;
+            }
+        },
+        // 当下拉框出现时触发
+        visibleHideSelectInput(val) {
+            if(val) {
+                this.deviceIdList = JSON.parse(JSON.stringify(this.patientList));
+            }
+        },
+        // 自定义筛选方法
+        dataFilterTerminal(val) {
+            if (val) {
+                let filterResult = [];
+                let originalData = JSON.parse(JSON.stringify(this.terminalList));
+                originalData.filter((item) => {
+                    if (item.nickname.includes(val)) {
+                        filterResult.push(item);
+                    }
+                })
+                this.terminalIdList = filterResult
+
+            } else {
+                this.terminalIdList = this.terminalList;
+            }
+        },
+        // 当下拉框出现时触发
+        visibleHideSelectInputTerminal(val) {
+            if(val) {
+                this.terminalIdList = JSON.parse(JSON.stringify(this.terminalList));
+            }
+        },
         onDialogClose() {
             this.add_newList = [];
             this.patientListName = '';
@@ -714,6 +777,7 @@ export default {
                         terminalListId[item.id] = item;
                         return item;
                     })
+
                     this.terminalListId = terminalListId
                 }
             })
@@ -732,6 +796,30 @@ export default {
         },
         //选择终端
         hanldClickTerminal(e) {
+            let isSelect = false;
+            this.infoForm.map(infoI => {
+                if (infoI.terminal.id == e.id) {
+                    isSelect = true
+                    return;
+                }
+            })
+            if (isSelect) {
+                this.$message({
+                    type: 'info',
+                    message: '终端已被选'
+                })
+                return;
+            }
+            this.curindex = e.id;
+            this.curInfo = e
+
+            // console.log(e)
+            this.terminal_id = e
+            this.terminal_id_name = e ? this.terminalList.find(ele => ele.id === e).nickname : ''
+            console.log(111, this.terminal_id_name)
+        },
+        //选择终端
+        hanldClickTerminal_(e) {
             let isSelect = false;
             this.infoForm.map(infoI => {
                 if (infoI.terminal.id == e.id) {
@@ -994,6 +1082,7 @@ export default {
     .el-input--suffix .el-input__inner {
         background: #021841;
         border-color: #01B2E4 !important;
+        padding-right: 20px!important;
     }
 
 }
@@ -1035,7 +1124,7 @@ export default {
             }
 
             .el-select {
-                width: 100%;
+                //width: 100%;
             }
 
 

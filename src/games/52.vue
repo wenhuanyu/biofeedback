@@ -13,7 +13,7 @@
                             <div class="d1">{{item.name}}</div>
                             <div class="d2">数值：{{item.value}}</div>
                         </div>
-                        <div :ref="'show'+item.id" style="width: 70px;position: relative;">
+                        <div :ref="'show'+item.id" :id="'add'+item.id" style="width: 70px;position: relative;">
                             <img src="../assets/games/52/bg.png" style="z-index: 1; position: absolute;">
                         </div>
                     </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
     export default {
         name: 'game_52',
         components: {
@@ -74,25 +75,39 @@
         },
         donghua() {
             if (this.biscuits !=='' && this.old !=='') {
+                let start_value =this.$store.state.user.game.start_value
+                let end_value =this.$store.state.user.game.end_value
                 this.biscuits.map(item => {
                     this.old.map(a => {
                         if (item.id === a.id) {
-                            if (!a.num) {
-                                item.num = 1
-                            } else {
-                                if (item.value > 70) {
-                                    item.num = a.num + 10
-                                    let img = document.createElement("img")
-                                    img.src = require("../assets/games/52/bg.png")
-                                    img.style.position = 'absolute'
-                                    img.style.top = '-'+item.num +'px'
-                                    img.style.zIndex = this.b
-                                    this.$refs['show'+item.id][0].appendChild(img)
-                                    console.log('>75',item.num)
+                            if(item.value > start_value && item.value <= end_value) {
+                                if (!a.num) {
+                                    item.num = 1
                                 } else {
-                                    item.num = a.num
+                                    if (item.value > 70) {
+                                        item.num = a.num + 10
+                                        let img = document.createElement("img")
+                                        img.src = require("../assets/games/52/bg.png")
+                                        img.className = 'imgadd'
+                                        img.style.position = 'absolute'
+                                        img.style.top = '-'+item.num +'px'
+                                        img.style.zIndex = this.b
+                                        this.$refs['show'+item.id][0].appendChild(img)
+                                        console.log('>75',item.num)
+                                    } else {
+                                        item.num = a.num
+                                    }
                                 }
+                            } else {
+                                let father = document.getElementById('add'+item.id)
+                                father.innerHTML = ""
+                                let img = document.createElement("img")
+                                img.src = require("../assets/games/52/bg.png")
+                                img.style.position = 'absolute'
+                                img.style.zIndex = 1
+                                this.$refs['show'+item.id][0].appendChild(img)
                             }
+
                         }
                     })
 

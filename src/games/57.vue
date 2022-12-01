@@ -91,54 +91,62 @@ export default {
         },
         donghua() {
             if (this.biscuits !== '' && this.old !== '') {
+                let start_value =this.$store.state.user.game.start_value
+                let end_value =this.$store.state.user.game.end_value
                 this.biscuits.map(item => {
                     this.old.map(a => {
                         if (item.id === a.id) {
-                            if(!a.num){
-                                if (item.value > 90) {
-                                    item.num = 10
-                                } else if(item.value <=90 && item.value > 80) {
-                                    item.num = 9
-                                } else if(item.value <=80 && item.value > 70) {
-                                    item.num = 8
-                                } else if(item.value <=70 && item.value > 60) {
-                                    item.num = 7
-                                } else if(item.value <=60 && item.value > 50) {
-                                    item.num = 6
-                                } else if(item.value <=50 && item.value > 40) {
-                                    item.num = 5
-                                } else if(item.value <=40 && item.value > 30) {
-                                    item.num = 4
-                                } else if(item.value <=30 && item.value > 20) {
-                                    item.num = 3
-                                } else if(item.value <=20 && item.value > 10) {
-                                    item.num = 2
-                                } else if(item.value <=10) {
-                                    item.num = 1
+                            if(item.value > start_value && item.value <= end_value) {
+                                if(!a.num){
+                                    if (item.value > 90) {
+                                        item.num = 9
+                                    } else if(item.value <=90 && item.value > 80) {
+                                        item.num = 8
+                                    } else if(item.value <=80 && item.value > 70) {
+                                        item.num = 7
+                                    } else if(item.value <=70 && item.value > 60) {
+                                        item.num = 6
+                                    } else if(item.value <=60 && item.value > 50) {
+                                        item.num = 5
+                                    } else if(item.value <=50 && item.value > 40) {
+                                        item.num = 4
+                                    } else if(item.value <=40 && item.value > 30) {
+                                        item.num = 3
+                                    } else if(item.value <=30 && item.value > 20) {
+                                        item.num = 2
+                                    } else if(item.value <=20 && item.value > 10) {
+                                        item.num = 1
+                                    } else if(item.value <=10) {
+                                        item.num = 0
+                                    }
+                                } else {
+                                    if (item.value > 90) {
+                                        item.num = a.num + 9
+                                    } else if(item.value <=90 && item.value > 80) {
+                                        item.num = a.num + 8
+                                    } else if(item.value <=80 && item.value > 70) {
+                                        item.num = a.num + 7
+                                    } else if(item.value <=70 && item.value > 60) {
+                                        item.num = a.num + 6
+                                    } else if(item.value <=60 && item.value > 50) {
+                                        item.num = a.num + 5
+                                    } else if(item.value <=50 && item.value > 40) {
+                                        item.num = a.num + 4
+                                    } else if(item.value <=40 && item.value > 30) {
+                                        item.num = a.num + 3
+                                    } else if(item.value <=30 && item.value > 20) {
+                                        item.num = a.num + 2
+                                    } else if(item.value <=20 && item.value > 10) {
+                                        item.num = a.num + 1
+                                    } else if(item.value <=10) {
+                                        item.num = a.num + 0
+                                    }
                                 }
                             } else {
-                                if (item.value > 90) {
-                                    item.num = a.num + 10
-                                } else if(item.value <=90 && item.value > 80) {
-                                    item.num = a.num + 9
-                                } else if(item.value <=80 && item.value > 70) {
-                                    item.num = a.num + 8
-                                } else if(item.value <=70 && item.value > 60) {
-                                    item.num = a.num + 7
-                                } else if(item.value <=60 && item.value > 50) {
-                                    item.num = a.num + 6
-                                } else if(item.value <=50 && item.value > 40) {
-                                    item.num = a.num + 5
-                                } else if(item.value <=40 && item.value > 30) {
-                                    item.num = a.num + 4
-                                } else if(item.value <=30 && item.value > 20) {
-                                    item.num = a.num + 3
-                                } else if(item.value <=20 && item.value > 10) {
-                                    item.num = a.num + 2
-                                } else if(item.value <=10) {
-                                    item.num = a.num + 1
-                                }
+                                a.num = 0
+                                item.num = 0
                             }
+
                         }
                     })
                 })

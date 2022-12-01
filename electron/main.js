@@ -36,7 +36,7 @@ app.on('ready', function () {
     // 加载应用的 index
     // mainWindow.loadURL("http://swfkqd.shoupinkangda.com/#/TerminalLogin")
     // mainWindow.loadURL("http://swfkqd.shoupinkangda.com/#/Login")
-    mainWindow.loadURL("http://localhost:8081/#/TerminalLogin")
+    mainWindow.loadURL("http://localhost:8080/#/TerminalLogin")
     // mainWindow.loadURL("http://192.168.8.189:92/#/Login")
     // mainWindow.loadURL("http://swfk.shoupinkangda.com/h5/#/Login")
     // mainWindow.loadURL("http://192.168.2.189/h5/#/TerminalLogin")

@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
 export default {
     name    : "Login",
     data() {
@@ -83,6 +84,9 @@ export default {
 
 
                     if (this.remember) {
+                        // let str = '王佳伟Vue字符串保存到txt文件下载到电脑案例'
+                        // let strData = new Blob([str], { type: 'text/plain;charset=utf-8' });
+                        // saveAs(strData, "测试文件下载.txt");
                         this.$store.commit('setAccount', {username: this.username, password: this.password});
                     } else {
                         this.$store.commit('setAccount', '');

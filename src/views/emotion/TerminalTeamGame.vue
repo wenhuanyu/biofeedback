@@ -379,6 +379,7 @@ export default {
                     this.physiology_param = result.data.physiology_param
                     this.end_value = result.data.end_value
                     this.start_value = result.data.start_value
+                    this.$store.commit('setGame', {start_value: this.start_value, end_value: this.end_value});
                 }
             })
         },

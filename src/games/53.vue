@@ -13,8 +13,8 @@
                             <div class="d1">{{item.name}}</div>
                             <div class="d2">数值：{{item.value}}</div>
                         </div>
-                        <img v-show="item.status==1" src="../assets/games/53/by.png">
-                        <img v-show="item.status==0" src="../assets/games/53/zy.png">
+                        <img v-show="item.status==1 &&  (item.value > start_value && item.value <= end_value)" src="../assets/games/53/by.png">
+                        <img v-show="item.status==0 || item.value <= start_value || item.value > end_value" src="../assets/games/53/zy.png">
                     </div>
                 </div>
             </div>
@@ -33,6 +33,8 @@ export default {
         return {
             biscuits:'',
             started: '',
+            start_value:'',
+            end_value:'',
             player : {
                 play    : function (speed) {
                     that.play(speed);
@@ -51,6 +53,8 @@ export default {
         }
     },
     created() {
+        this.start_value =this.$store.state.user.game.start_value
+        this.end_value =this.$store.state.user.game.end_value
     },
     methods: {
         play(speed) {

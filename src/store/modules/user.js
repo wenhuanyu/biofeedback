@@ -64,7 +64,9 @@ export default {
 		setAccount(state, account) {
 			state.account = account;
 		},
-
+        setGame(state, account) {
+            state.game = account;
+        },
 		setTerminalUserInfo(state, userinfo) {
 			state.terminal.loginStatus = userinfo.status;
 			state.terminal.userInfo = userinfo.data;

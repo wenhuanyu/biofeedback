@@ -71,12 +71,12 @@
                     </div>
                 </div>
                 <div class="status">{{ status }}</div>
-<!--                <div class="button" v-bind:style="{pointerEvents:eve}">-->
-<!--                    {{ vdtText }}s&nbsp;开始训练-->
-<!--                </div>-->
-                <div class="button" @click="beginClick" v-bind:style="{pointerEvents:eve}">
+                <div class="button" v-bind:style="{pointerEvents:eve}">
                     {{ vdtText }}s&nbsp;开始训练
                 </div>
+<!--                <div class="button" @click="beginClick" v-bind:style="{pointerEvents:eve}">-->
+<!--                    {{ vdtText }}s&nbsp;开始训练-->
+<!--                </div>-->
             </div>
 
         </div>
@@ -368,11 +368,11 @@ export default {
 
 
         // 开始训练按钮点击事件
-        beginClick() {
-            this.introduce = this.item.list[this.listIndex]
-            this.vdtText = 10
-            this.youxi1()
-        },
+        // beginClick() {
+        //     this.introduce = this.item.list[this.listIndex]
+        //     this.vdtText = 10
+        //     this.youxi1()
+        // },
 
 
         // 结束按钮点击事件
