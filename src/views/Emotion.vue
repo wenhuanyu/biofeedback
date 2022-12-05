@@ -510,7 +510,7 @@ export default {
                 let filterResult = [];
                 let originalData = JSON.parse(JSON.stringify(this.patientList));
                 originalData.filter((item) => {
-                    if (item.medical_num.includes(val)) {
+                    if (item.medical_num.includes(val) || item.name.includes(val)) {
                         filterResult.push(item);
                     }
                 })

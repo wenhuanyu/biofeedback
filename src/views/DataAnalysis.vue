@@ -265,11 +265,11 @@ export default {
                     value: 'in_time',
                     width:'160'
                 },
-                {
-                    name: '户口类型',
-                    value: 'hukou',
-                    width:'120'
-                },
+                // {
+                //     name: '户口类型',
+                //     value: 'hukou',
+                //     width:'120'
+                // },
                 {
                     name: '手机号',
                     value: 'phone',

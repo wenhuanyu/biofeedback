@@ -224,7 +224,8 @@ export default {
                                 name: 'EmotionGame',
                                 query: {
                                     id: this.exam_id,
-                                    practice_type: this.practiceType
+                                    practice_type: this.practiceType,
+                                    patient_id:this.examInfo.patient_id
                                 }
                             })
                         } else if (this.gameType == 2) {  //对抗游戏
@@ -234,6 +235,7 @@ export default {
                                     id: this.exam_id,
                                     practice_type: this.practiceType,
                                     test_paper_id: this.$route.query.test_paper_id,
+                                    patient_id:this.examInfo.patient_id
                                 }
                             })
                         } else if (this.gameType == 3) {  //团队游戏
@@ -243,6 +245,7 @@ export default {
                                     id: this.exam_id,
                                     practice_type: this.practiceType,
                                     test_paper_id: this.$route.query.test_paper_id,
+                                    patient_id:this.examInfo.patient_id
                                 }
                             })
                         }

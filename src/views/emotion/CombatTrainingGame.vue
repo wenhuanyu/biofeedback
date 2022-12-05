@@ -244,7 +244,6 @@ export default {
         },
 
         async liebiao() {
-            console.log('111111111111')
             await this.$axios.post('term/emotion/is_ready', {id: this.$route.query.id}).then(res => {
                 this.touxiangliebiao = true
             })
@@ -377,7 +376,11 @@ export default {
 
         // 结束按钮点击事件
         breath_end() {
-            this.$axios.post('term/index/end', {exam_id: this.$route.query.id, type: 3}).then(res => {
+            this.$axios.post('term/index/end', {
+                exam_id: this.$route.query.id,
+                type: 3,
+                patient_id:this.$route.query.patient_id,
+            }).then(res => {
                 this.$message.success(res.data.info);
                 this.$router.push({name: "TerminalWait"})
             })

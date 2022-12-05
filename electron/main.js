@@ -33,10 +33,10 @@ app.on('ready', function () {
     })
     Menu.setApplicationMenu(null)
 
-    // 加载应用的 index
-    // mainWindow.loadURL("http://swfkqd.shoupinkangda.com/#/TerminalLogin")
+    // // 加载应用的 index
+    mainWindow.loadURL("http://swfkqd.shoupinkangda.com/#/TerminalLogin")
     // mainWindow.loadURL("http://swfkqd.shoupinkangda.com/#/Login")
-    mainWindow.loadURL("http://localhost:8080/#/TerminalLogin")
+    // mainWindow.loadURL("http://localhost:8081/#/TerminalLogin")
     // mainWindow.loadURL("http://192.168.8.189:92/#/Login")
     // mainWindow.loadURL("http://swfk.shoupinkangda.com/h5/#/Login")
     // mainWindow.loadURL("http://192.168.2.189/h5/#/TerminalLogin")
@@ -55,7 +55,7 @@ app.on('ready', function () {
 
 
     // 打开开发工具
-    mainWindow.openDevTools();
+    // mainWindow.openDevTools();
 
     // 当 window 被关闭，这个事件会被发出
     mainWindow.on('closed', function () {

@@ -42,7 +42,14 @@
 </template>
 
 <script>
-import { saveAs } from 'file-saver';
+var userAgent = navigator.userAgent.toLowerCase()
+if(userAgent.indexOf('electron/')>-1) {
+    console.log('桌面应用')
+    var Store = window.require('electron-store')
+    var storeName = new Store();
+}else {
+    console.log('浏览器')
+}
 export default {
     name    : "Login",
     data() {
@@ -82,14 +89,23 @@ export default {
                     this.$router.push('/');
                     sessionStorage.setItem('usertype','center')
 
-
-                    if (this.remember) {
-                        // let str = '王佳伟Vue字符串保存到txt文件下载到电脑案例'
-                        // let strData = new Blob([str], { type: 'text/plain;charset=utf-8' });
-                        // saveAs(strData, "测试文件下载.txt");
-                        this.$store.commit('setAccount', {username: this.username, password: this.password});
-                    } else {
-                        this.$store.commit('setAccount', '');
+                    var userAgent = navigator.userAgent.toLowerCase()
+                    if(userAgent.indexOf('electron/')>-1) {
+                        if (this.remember) {
+                            //记住密码
+                            storeName.set("swfkzkname",this.username);
+                            storeName.set("swfkzkpassword",this.password);
+                        } else {
+                            storeName.delete('swfkzkname');
+                            storeName.delete('swfkzkpassword');
+                        }
+                    }else {
+                        if (this.remember) {
+                            //记住密码
+                            this.$store.commit('setAccount', {username: this.username, password: this.password});
+                        } else {
+                            this.$store.commit('setAccount', '');
+                        }
                     }
                 }
             })
@@ -108,12 +124,22 @@ export default {
 
     mounted() {
         this.$store.commit('setClient', false);
-
-        if (this.$store.state.user.account) {
-            let data      = this.$store.state.user.account;
-            this.password = data.password;
-            this.username = data.username;
-            this.remember = true;
+        var userAgent = navigator.userAgent.toLowerCase()
+        if(userAgent.indexOf('electron/')>-1) {
+            if(storeName.has("swfkzkname")){
+                this.password = storeName.get('swfkzkpassword')
+                this.username = storeName.get('swfkzkname')
+                this.remember = true
+            } else  {
+                this.remember = false
+            }
+        }else {
+            if (this.$store.state.user.account) {
+                let data      = this.$store.state.user.account;
+                this.password = data.password;
+                this.username = data.username;
+                this.remember = true;
+            }
         }
     }
 }
